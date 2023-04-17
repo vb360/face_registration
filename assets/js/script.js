@@ -1,7 +1,7 @@
 const video = document.getElementById("video");
 
 
-const socket = io()
+// const socket = io()
 
 
 Promise.all([
@@ -29,12 +29,12 @@ function startWebcam(){
 
 
 async function getLabeledFaceDescriptions() {
-  // const response =  await fetch('http://localhost:3000/getLabels')
-  // const labels = await response.json()
-  // console.log(labels)
+  const response =  await fetch('https://44.226.145.213:3000/getLabels')
+  const labels = await response.json()
+  console.log(labels)
 
-  socket.emit('hello')
-  socket.on('labels',async (labels)=>{
+  // socket.emit('hello')
+  // socket.on('labels',async (labels)=>{
 
   return Promise.all(
     labels.map(async (label) => {
@@ -51,7 +51,7 @@ async function getLabeledFaceDescriptions() {
       return new faceapi.LabeledFaceDescriptors(label, descriptions);
     })
   );
-  })
+  // })
 }
 
 async function faceRecognition() {

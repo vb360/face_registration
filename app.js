@@ -66,20 +66,20 @@ app.get('/getLabels', (req,res)=>{
     res.send(labels)
 })
 
-io.on('connection', function (socket) {
-    socket.on('hello',()=>{
-        const testFolder = path.join(__dirname, './assets/images/labels');
-        // const fs = require('fs');
-        // console.log(path.join(__dirname, ''))
-        let labels = [];
-        fs.readdirSync(testFolder).forEach(file => {
-            // console.log(file);
-            labels.push(file)
-        });
-        // console.log(labels)
-        socket.emit('labels',labels)
-    })
-})
+// io.on('connection', function (socket) {
+//     socket.on('hello',()=>{
+//         const testFolder = path.join(__dirname, './assets/images/labels');
+//         // const fs = require('fs');
+//         // console.log(path.join(__dirname, ''))
+//         let labels = [];
+//         fs.readdirSync(testFolder).forEach(file => {
+//             // console.log(file);
+//             labels.push(file)
+//         });
+//         // console.log(labels)
+//         socket.emit('labels',labels)
+//     })
+// })
 
 
 
