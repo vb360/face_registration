@@ -5,9 +5,14 @@ const path = require('path')
 const port = 3000
 require('dotenv').config()
 
+
 //////////////////////////////////////////////////////////////////////////////////
 
 const app = express()
+
+const server = require("http").Server(app)
+const io = require("socket.io")(server)
+
 app.use(cors())
 ///////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////Always add these///////////////////////////////
@@ -23,7 +28,7 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')))
 
  
 app.get('/',(req,res) => {
-    res.render('index1.html') 
+    res.render('index1.html')
 });
 
 
@@ -61,4 +66,22 @@ app.get('/getLabels', (req,res)=>{
     res.send(labels)
 })
 
-app.listen(port, ()=>console.log(`App started running on port: ${port}`))
+io.on('connection', function (socket) {
+    socket.on('hello',()=>{
+        const testFolder = path.join(__dirname, './assets/images/labels');
+        // const fs = require('fs');
+        // console.log(path.join(__dirname, ''))
+        let labels = [];
+        fs.readdirSync(testFolder).forEach(file => {
+            // console.log(file);
+            labels.push(file)
+        });
+        // console.log(labels)
+        socket.emit('labels',labels)
+    })
+})
+
+
+
+
+server.listen(port, ()=>console.log(`App started running on port: ${port}`))

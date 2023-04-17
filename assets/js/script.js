@@ -1,6 +1,9 @@
 const video = document.getElementById("video");
 
 
+const socket = io()
+
+
 Promise.all([
   faceapi.nets.ssdMobilenetv1.loadFromUri("/models"),
   faceapi.nets.faceRecognitionNet.loadFromUri("/models"),
@@ -23,10 +26,15 @@ function startWebcam(){
     });
 }
 
+
+
 async function getLabeledFaceDescriptions() {
-  const response =  await fetch('http://localhost:3000/getLabels')
-  const labels = await response.json()
+  // const response =  await fetch('http://localhost:3000/getLabels')
+  // const labels = await response.json()
   // console.log(labels)
+
+  socket.emit('hello')
+  socket.on('labels',async (labels)=>{
 
   return Promise.all(
     labels.map(async (label) => {
@@ -43,6 +51,7 @@ async function getLabeledFaceDescriptions() {
       return new faceapi.LabeledFaceDescriptors(label, descriptions);
     })
   );
+  })
 }
 
 async function faceRecognition() {
