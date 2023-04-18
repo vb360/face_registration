@@ -148,7 +148,7 @@ async function handleSubmit(){
             body: JSON.stringify(data)
         };
 
-        await fetch('http://localhost:3000/addUser', options1)
+        await fetch('https://face-registration.onrender.com/addUser', options1)
                 .then(response=>response.json())
                 // .then(submitImage())
                 .then(data=>{
