@@ -27,9 +27,8 @@ function startWebcam(){
 }
 
 
-
 async function getLabeledFaceDescriptions() {
-  const response =  await fetch('https://44.226.145.213:3000/getLabels')
+  const response =  await fetch('https://face-registration.onrender.com/getLabels')
   const labels = await response.json()
   console.log(labels)
 
