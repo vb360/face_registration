@@ -169,7 +169,7 @@ async function submitImage(){
     },
     body: JSON.stringify(data)
   };
-  const res = await fetch('http://localhost:3000/upload', options1)
+  const res = await fetch('https://face-registration.onrender.com/upload', options1)
   const res_data = await res.json()
   IMGNAME = res_data.ImageName
   console.log(IMGNAME)
