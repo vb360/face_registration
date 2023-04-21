@@ -36,7 +36,7 @@ video{
     position: absolute;
     top: 21%;
     left: -5%;
-    transform: rotate(90deg);
+    /* transform: rotate(90deg); */
     height: 21em;
     width: 27em;
 }
@@ -45,7 +45,7 @@ canvas{
     position: absolute;
     top: 21%;
     left: -5%;
-    transform: rotate(90deg);
+    /* transform: rotate(90deg); */
     height: 21em;
     width: 27em;
 }
