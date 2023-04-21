@@ -50,8 +50,8 @@ canvas{
     top: 24%;
     left: 5%;
     /* transform: rotate(90deg); */
-    height: 17em;
-    width: 22em;
+    /* height: 17em;
+    width: 22em; */
 }
 
 
@@ -91,13 +91,26 @@ canvas{
     font-weight: 500;
 }
 
-#startbutton{
-    background-image: linear-gradient(to bottom right, #F8C800, #B55C22);
+
+#overStart{
     position: absolute;
     bottom: 12em;
     left: 9.5em;
     width: 70px;
     height: 70px;
+    margin: 10px;
+    border-radius: 50%;
+    border: 2px solid #B55C22;
+    padding: 5px;
+}
+
+#startbutton{
+    background-image: linear-gradient(to bottom right, #F8C800, #B55C22);
+    position: relative;
+    bottom: 0.75em;
+    left: -0.65em;
+    width: 60px;
+    height: 60px;
     margin: 10px;
     border-radius: 50%;
 
