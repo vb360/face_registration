@@ -15,11 +15,18 @@ body {
 
 
 #next1{
+    text-align: center;
+    font-size: xx-large;
+    font-weight: 500;
     width: 86%;
     height: 8%;
     position: absolute;
     top: 54%;
     left: 7%;
+    width: 335px;
+    height: 67px;
+    border-radius: 12px;
+    background-image: linear-gradient(to bottom right, #F8C800, #B55C22);
 }
 
 #captureScreen{
@@ -45,9 +52,9 @@ canvas{
     position: absolute;
     top: 21%;
     left: -5%;
-    /* transform: rotate(90deg); */
+    /* transform: rotate(90deg);
     height: 21em;
-    width: 27em;
+    width: 27em; */
 }
 
 
@@ -57,33 +64,47 @@ canvas{
 }
 
  #next{
+    background-image: linear-gradient(to bottom right, #F8C800, #B55C22);
     position: absolute;
-    bottom: 2em;
+    bottom: 1em;
     left: 1.5em;
-    width: 20em;
+    width: 9em;
     height: 70px;
     margin: 10px;
+    border-radius: 12px;
+    text-align: center;
+    font-size: xx-large;
+    font-weight: 500;
+    padding: 10px 0 0 0;
+
 }
 
 
 #Retake{
+    background-image: linear-gradient(to bottom right, #F8C800, #B55C22);
     position: absolute;
-    bottom: 7.5em;
-    left: 8.5em;
-    width: 104px;
+    bottom: 4em;
+    left: 4em;
+    width: 4em;
     height: 45px;
     margin: 10px;
+    border-radius: 12px;
+    text-align: center;
+    font-size: xx-large;
+    font-weight: 500;
 }
 
 #startbutton{
+    background-image: linear-gradient(to bottom right, #F8C800, #B55C22);
     position: absolute;
     bottom: 12em;
     left: 9.5em;
     width: 70px;
     height: 70px;
     margin: 10px;
-}
+    border-radius: 50%;
 
+}
 
 #line1{
     display: flex;
