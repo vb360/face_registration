@@ -11,6 +11,7 @@ body {
     background-image: url('../images/bgs/Phone\ Screen\ 3.png');
     background-size: cover;
     background-repeat: no-repeat;
+    overflow: hidden;
 }
 
 
@@ -34,27 +35,23 @@ body {
 }
 
 
-#camera{
-    /* position: absolute; */
-}
-
 
 video{
     position: absolute;
-    top: 21%;
-    left: -5%;
+    top: 24%;
+    left: 5%;
     /* transform: rotate(90deg); */
-    height: 21em;
-    width: 27em;
+    height: 17em;
+    width: 22em;
 }
 
 canvas{
     position: absolute;
-    top: 21%;
-    left: -5%;
-    /* transform: rotate(90deg);
-    height: 21em;
-    width: 27em; */
+    top: 24%;
+    left: 5%;
+    /* transform: rotate(90deg); */
+    height: 17em;
+    width: 22em;
 }
 
 
