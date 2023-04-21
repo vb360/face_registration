@@ -41,17 +41,17 @@ video{
     top: 24%;
     left: 5%;
     /* transform: rotate(90deg); */
-    height: 17em;
+    /* height: 17em; */
     width: 22em;
 }
 
 canvas{
     position: absolute;
-    top: 24%;
-    left: 5%;
+    top: 26%;
+    left:11%;
     /* transform: rotate(90deg); */
     /* height: 17em; */
-    width: 22em;
+    /* width: 22em; */
 }
 
 
