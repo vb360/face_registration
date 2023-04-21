@@ -25,8 +25,8 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')))
 // app.use('/models', express.static(path.join(__dirname, '/public/models')))
 // app.use('/js', express.static(path.join(__dirname, 'js')))
 // app.use('/views', express.static(path.join(__dirname, '/public/views')))
+  
 
- 
 app.get('/',(req,res) => {
     res.render('index1.html')
 });
@@ -34,7 +34,7 @@ app.get('/',(req,res) => {
 
 // Registration Form submit handling
 app.get("/register", (req, res) => {
-    res.render('register.html')
+    res.render('reg.html')
 })
  
 app.post('/addUser', (req,res) => {

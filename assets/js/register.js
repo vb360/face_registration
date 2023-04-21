@@ -1,8 +1,15 @@
 var IMGNAME;
 var _ID;
+
+function start(){
+    document.getElementById('container1').style.display = 'none'
+    document.getElementById('container2').style.display = 'flex'
+    // startWebcam()
+}
+
+
 (() => {
-  
-    const width = 720; // We will scale the photo width to this
+    const width = 300; // We will scale the photo width to this
     let height = 0; // This will be computed based on the input stream
   
     
@@ -77,7 +84,6 @@ var _ID;
   
     //   clearphoto();
     }
-
   
     function takepicture() {
         document.getElementById('video').style.display = 'none'
@@ -94,88 +100,57 @@ var _ID;
         clearphoto();
       }
     }
-  
     window.addEventListener("load", startup, false);
-})();
+})(); 
 
-
-function showVideo(){
-    document.getElementById('opening').style.display = 'none'
-    document.getElementById('video').style.display = 'block'
-    document.getElementById('startbutton').style.display = 'block'
-    document.getElementById('Retake').style.display = 'block'
-    document.getElementById('next').style.display = 'block'
-    // console.log('Button Clicked!')
-}
 
 function retake(){
-    document.getElementById('canvas').style.display = 'none'
-    document.getElementById('video').style.display = 'block'
+  document.getElementById('canvas').style.display = 'none'
+  document.getElementById('video').style.display = 'block'
 }
 
 function regPage(){
-    document.getElementById('canvas').style.display = 'none'
-    document.getElementById('camera').style.display = 'none'
-    document.getElementById('Registration').style.display = 'flex'
-    // submitImage()
-    // document.getElementById('camera').style.display = 'none'
-    // document.getElementById('Registration').style.display = 'block'
+  document.getElementById('container2').style.display = 'none'
+  document.getElementById('over').style.display = 'flex'
 }
 
 async function handleSubmit(){
     
-    // e.preventDefault()
-    const canvas =  document.getElementById('canvas')
-    const image64 = canvas.toDataURL();
-    // const data = { 'image':image64 };
-    const name = document.getElementById("fname").value
-    const email = document.getElementById("email1").value
-    const company = document.getElementById("company").value
-    const city = document.getElementById("city").value
-
-    if(!name || !email || !company || !city){
-    alert("Please fill all fields")
-    }
-    else{
-        const data= {name, company, email, city, IMGNAME,image64 }
-        // console.log(data)
-        const options1 = {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        };
-
-        await fetch('https://face-registration.onrender.com/addUser', options1)
-                .then(response=>response.json())
-                // .then(submitImage())
-                .then(data=>{
-                    _ID = data._ID
-                    console.log(_ID)})
-                .then(showThanks())
-                }
-}
-
-async function submitImage(){
+  // e.preventDefault()
   const canvas =  document.getElementById('canvas')
   const image64 = canvas.toDataURL();
-  const data = { image64 };
-  const options1 = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  };
-  const res = await fetch('https://face-registration.onrender.com/upload', options1)
-  const res_data = await res.json()
-  IMGNAME = res_data.ImageName
-  console.log(IMGNAME)
+  // const data = { 'image':image64 };
+  const name = document.getElementById("fname").value
+  const email = document.getElementById("email1").value
+  const company = document.getElementById("company").value
+  const city = document.getElementById("city").value
+
+  if(!name || !email || !company || !city){
+  alert("Please fill all fields")
+  }
+  else{
+      const data= {name, company, email, city, IMGNAME,image64 }
+      // console.log(data)
+      const options1 = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+      };
+
+      await fetch('http://localhost:3000/addUser', options1)
+              .then(response=>response.json())
+              // .then(submitImage())
+              .then(data=>{
+                  _ID = data._ID
+                  console.log(_ID)})
+              .then(showThanks())
+              }
 }
 
 
 function showThanks(){
-    document.getElementById('Registration').style.display = 'none'
-    document.getElementById('showThanks').style.display = 'flex'   
+  document.getElementById('over').style.display = 'none'
+  document.getElementById('showThanks').style.display = 'flex'   
 }
