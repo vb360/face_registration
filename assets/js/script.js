@@ -60,7 +60,7 @@ async function getLabeledFaceDescriptions() {
   return Promise.all(
     labels.map(async (label) => {
       const descriptions = [];
-      for (let i = 1; i <= 1; i++){
+      // for (let i = 1; i <= 1; i++){
         let path = `labels/${label}`
         firebase.storage().ref(path).child(`1`).getDownloadURL()
         .then(async (url) => {
@@ -75,7 +75,7 @@ async function getLabeledFaceDescriptions() {
   .catch((error) => {
     // Handle any errors
   });
-      }
+      // }
       return new faceapi.LabeledFaceDescriptors(label, descriptions);
     })
   );
