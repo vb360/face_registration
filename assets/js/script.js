@@ -1,8 +1,18 @@
 const video = document.getElementById("video");
-
+var labels = []
 
 // const socket = io()
-
+const firebaseConfig = {
+      apiKey: "AIzaSyBZnFJQJlCQEFdvmFLI0gkSCHHiH1lUAWo",
+      authDomain: "node-file-uploader.firebaseapp.com",
+      projectId: "node-file-uploader",
+      storageBucket: "node-file-uploader.appspot.com",
+      messagingSenderId: "345185058962",
+      appId: "1:345185058962:web:8629baa36820a3c410a64b",
+      measurementId: "G-GSV81VWQE1"
+    };
+  
+firebase.initializeApp(firebaseConfig);
 
 Promise.all([
   faceapi.nets.ssdMobilenetv1.loadFromUri("/models"),
@@ -26,26 +36,45 @@ function startWebcam(){
     });
 }
 
-
 async function getLabeledFaceDescriptions() {
-  const response =  await fetch('https://face-registration.onrender.com/getLabels')
-  const labels = await response.json()
-  console.log(labels)
-
-  // socket.emit('hello')
-  // socket.on('labels',async (labels)=>{
-
+  // const response =  await fetch('https://face-registration.onrender.com/getLabels')
+  // const labels = await response.json()
+  // console.log(labels)
+  var listRef = await firebase.storage().ref(`labels`);
+    // Find all the prefixes and items.
+    await listRef.listAll()
+      .then((res) => {
+        res.prefixes.forEach((folderRef) => {
+          // All the prefixes under listRef.
+          // You may call listAll() recursively on them.
+          // console.log(folderRef.location.path_.slice(7))
+          labels.push(folderRef.location.path_.slice(7))
+        });
+        // res.items.forEach((itemRef) => {
+          // All the items under listRef.
+        // });
+      }).catch((error) => {
+        // Uh-oh, an error occurred!
+        console.error(error)
+      });
   return Promise.all(
     labels.map(async (label) => {
-      
       const descriptions = [];
       for (let i = 1; i <= 1; i++){
-        const img = await faceapi.fetchImage(`../assets/images/labels/${label}/${i}.png`); // firebase folder path??
-        const detections = await faceapi
-          .detectSingleFace(img)
-          .withFaceLandmarks()
-          .withFaceDescriptor();
-        descriptions.push(detections.descriptor);
+        let path = `labels/${label}`
+        firebase.storage().ref(path).child(`1`).getDownloadURL()
+        .then(async (url) => {
+          // const img = await faceapi.fetchImage(`../assets/images/labels/${label}/${i}.png`); // firebase folder path??
+          const img = await faceapi.fetchImage(url)
+          const detections = await faceapi
+            .detectSingleFace(img)
+            .withFaceLandmarks()
+            .withFaceDescriptor();
+          descriptions.push(detections.descriptor);
+          })
+  .catch((error) => {
+    // Handle any errors
+  });
       }
       return new faceapi.LabeledFaceDescriptors(label, descriptions);
     })

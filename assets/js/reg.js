@@ -1,5 +1,19 @@
 var IMGNAME;
 var _ID;
+
+const firebaseConfig = {
+    apiKey: "AIzaSyBZnFJQJlCQEFdvmFLI0gkSCHHiH1lUAWo",
+    authDomain: "node-file-uploader.firebaseapp.com",
+    projectId: "node-file-uploader",
+    storageBucket: "node-file-uploader.appspot.com",
+    messagingSenderId: "345185058962",
+    appId: "1:345185058962:web:8629baa36820a3c410a64b",
+    measurementId: "G-GSV81VWQE1"
+  };
+
+firebase.initializeApp(firebaseConfig);
+
+
 (() => {
   
     const width = 720; // We will scale the photo width to this
@@ -94,7 +108,6 @@ var _ID;
         clearphoto();
       }
     }
-  
     window.addEventListener("load", startup, false);
 })();
 
@@ -117,7 +130,7 @@ function regPage(){
     document.getElementById('canvas').style.display = 'none'
     document.getElementById('camera').style.display = 'none'
     document.getElementById('Registration').style.display = 'flex'
-    // submitImage()
+    submitImage()
     // document.getElementById('camera').style.display = 'none'
     // document.getElementById('Registration').style.display = 'block'
 }
@@ -160,20 +173,31 @@ async function handleSubmit(){
 async function submitImage(){
   const canvas =  document.getElementById('canvas')
   const image64 = canvas.toDataURL();
-  const data = { image64 };
-  const options1 = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  };
-  const res = await fetch('https://face-registration.onrender.com/upload', options1)
-  const res_data = await res.json()
-  IMGNAME = res_data.ImageName
-  console.log(IMGNAME)
+  uploadImage(image64)
+  // const data = { image64 };
+  // const options1 = {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify(data)
+  // };
+  // const res = await fetch('https://face-registration.onrender.com/upload', options1)
+  // const res_data = await res.json()
+  // IMGNAME = res_data.ImageName
+  // console.log(IMGNAME)
+  //    console.log(firebase);
+    function uploadImage(your_base64_image) {
+        firebase.storage().ref(`labels`).child(`${Date.now()}`)
+        .putString(your_base64_image, 'data_url', {contentType:'image/jpg'})
+        .then(snapshot => snapshot.ref.getDownloadURL())
+        .then(url => {
+            console.log(url);
+    
+        })
+        .catch(console.error);
+    } 
 }
-
 
 function showThanks(){
     document.getElementById('Registration').style.display = 'none'
