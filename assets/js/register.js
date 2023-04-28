@@ -155,7 +155,7 @@ async function handleSubmit(){
 
       uploadImage(image64)
       function uploadImage(your_base64_image) {
-            firebase.storage().ref(`labels/${name}`).child(`1`)
+            firebase.storage().ref(`labels/${name}+${company}`).child(`1`)
             .putString(your_base64_image, 'data_url', {contentType:'image/png'})
             .then(snapshot => snapshot.ref.getDownloadURL())
             .then(url => {
@@ -201,8 +201,6 @@ async function submitImage(){
         .catch(console.error);
     } 
 }
-
-
 
 
 function showThanks(){

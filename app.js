@@ -37,6 +37,10 @@ app.get("/register", (req, res) => {
     res.render('reg.html')
 })
 
+app.get("/print", (req, res) => {
+    res.render('print.html')
+})
+
 app.post('/addUser', (req,res) => {
     const data = req.body;
     // console.log(data)
@@ -65,5 +69,17 @@ app.get('/getLabels', (req,res)=>{
     // console.log(labels)
     res.send(labels)
 })
+
+app.post("/upload", (req, res) => {
+    const data = req.body;
+    const imageData = data.image64.replace(/^data:image\/\w+;base64,/, '');
+    // console.log(imageData)
+     const buffer = Buffer.from(imageData, 'base64');
+     const imgName = `./uploads/image${Date.now()}.png`
+    fs.writeFile(imgName, buffer, err => {
+          if (err) {  res.status(500).send({ error: 'Error saving image' })} 
+          else {  res.send({ 'ImageName':imgName })}
+    });  
+});
 
 server.listen(port, ()=>console.log(`App started running on port: ${port}`))

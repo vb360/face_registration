@@ -1,16 +1,20 @@
 const video = document.getElementById("video");
 var labels = []
+var canvas;
+var NAME;
+var DATA;
+var COMPANY;
 
 // const socket = io()
 const firebaseConfig = {
-      apiKey: "AIzaSyBZnFJQJlCQEFdvmFLI0gkSCHHiH1lUAWo",
-      authDomain: "node-file-uploader.firebaseapp.com",
-      projectId: "node-file-uploader",
-      storageBucket: "node-file-uploader.appspot.com",
-      messagingSenderId: "345185058962",
-      appId: "1:345185058962:web:8629baa36820a3c410a64b",
-      measurementId: "G-GSV81VWQE1"
-    };
+      apiKey: "AIzaSyBZnFJQJlCQEFdvmFLI0gkSCHHiH1lUAWo",
+      authDomain: "node-file-uploader.firebaseapp.com",
+      projectId: "node-file-uploader",
+      storageBucket: "node-file-uploader.appspot.com",
+      messagingSenderId: "345185058962",
+      appId: "1:345185058962:web:8629baa36820a3c410a64b",
+      measurementId: "G-GSV81VWQE1"
+    };
   
 firebase.initializeApp(firebaseConfig);
 
@@ -82,21 +86,23 @@ async function getLabeledFaceDescriptions() {
   // })
 }
 
+video.addEventListener("playing", () => {
+// location.reload();
+faceRecognition()
+});
 async function faceRecognition() {
   const labeledFaceDescriptors = await getLabeledFaceDescriptions();
   const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors);
   
-    video.addEventListener("playing", () => {
-    location.reload();
-  });
+  canvas = await faceapi.createCanvasFromMedia(video);
 
-    const canvas = faceapi.createCanvasFromMedia(video);
+  
     document.body.append(canvas);
 
     const displaySize = { width: video.width, height: video.height };
     faceapi.matchDimensions(canvas, displaySize);
 
-    setInterval(async () => {
+    // setInterval(async () => {
       const detections = await faceapi
         .detectAllFaces(video)
         .withFaceLandmarks()
@@ -106,19 +112,64 @@ async function faceRecognition() {
 
       const resizedDetections = faceapi.resizeResults(detections, displaySize);
 
-      canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+      // canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
 
       const results = resizedDetections.map((d) => {
         // console.log(d)
         return faceMatcher.findBestMatch(d.descriptor);
       });
+      // console.log(results)
       results.forEach((result, i) => {
         // console.log(result._label)
         const box = resizedDetections[i].detection.box;
         const drawBox = new faceapi.draw.DrawBox(box, {
           label: result._label,
         });
-        drawBox.draw(canvas);
+        DATA = result._label.split('+')
+        // drawBox.draw(canvas);
+        setTimeout(()=>{
+          showPrint()
+        },2000)
       });
-    }, 100);
+    // }, 5000);
+}
+
+
+function showPrint(){
+  
+  NAME = DATA[0]
+  COMPANY = DATA[1]
+  canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+  document.getElementById('video').style.display = 'none'
+  // document.getElementById('canvas').style.display = 'none'
+  document.getElementById('body').style.backgroundImage="url(../assets/images/bgs/Webscreen3.png)";
+  document.getElementById('PrintBadge').style.display = 'flex'
+  document.getElementById('Name').innerHTML += NAME
+  document.getElementById('Company').innerHTML += COMPANY
+}
+
+function printBadge(){
+  downloadReceipt()
+    document.getElementById('PrintBadge').style.display = 'none'
+    document.getElementById('showThanks').style.display = 'flex'
+    
+}
+
+function downloadReceipt() {
+  // document.getElementById('print').style.display = 'none'
+  const data = document.getElementById('show');
+  html2canvas(data,{allowTaint:true}).then(async(canvas) => {
+  const image64 = canvas.toDataURL();
+  const data = { image64 };
+  const options1 = {
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+  };
+  const response = await fetch('http://localhost:3000/upload', options1)
+  const res_data = await response.json()
+  console.log(res_data.ImageName)  
+  })
 }
