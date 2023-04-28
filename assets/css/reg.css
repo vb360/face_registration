@@ -38,11 +38,11 @@ body {
 
 video{
     position: absolute;
-    top: 10%;
-    left: 16%;
+    top: 9%;
+    left: 7%;
     /* transform: rotate(90deg); */
     height: 26em;
-    width: 17em;
+    width: 21em;
     border: 5px solid #B55C22;
     border-radius: 2em;
 }
@@ -75,7 +75,7 @@ canvas{
     text-align: center;
     font-size: xx-large;
     font-weight: 500;
-    /* padding: 10px 0 0 0;
+    /* /* padding: 10px 0 0 0; */
 
 }
 
