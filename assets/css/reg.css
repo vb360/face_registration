@@ -39,10 +39,10 @@ body {
 video{
     position: absolute;
     top: 10%;
-    left: 19%;
+    left: 16%;
     /* transform: rotate(90deg); */
     height: 26em;
-    width: 15em;
+    width: 17em;
     border: 5px solid #B55C22;
     border-radius: 2em;
 }
@@ -69,13 +69,13 @@ canvas{
     bottom: 1em;
     left: 1.5em;
     width: 9em;
-    height: 70px;
+    height: 1.4em;
     margin: 10px;
     border-radius: 12px;
     text-align: center;
     font-size: xx-large;
     font-weight: 500;
-    padding: 10px 0 0 0;
+    /* padding: 10px 0 0 0;
 
 }
 
@@ -83,7 +83,7 @@ canvas{
 #Retake{
     background-image: linear-gradient(to bottom right, #F8C800, #B55C22);
     position: absolute;
-    bottom: 4em;
+    bottom: 3em;
     left: 4em;
     width: 4em;
     height: 45px;
@@ -97,7 +97,7 @@ canvas{
 
 #overStart{
     position: absolute;
-    bottom: 12em;
+    bottom: 10em;
     left: 9.5em;
     width: 70px;
     height: 70px;
