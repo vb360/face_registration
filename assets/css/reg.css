@@ -38,36 +38,25 @@ body {
 
 video{
     position: absolute;
-    top: 19%;
-    left: 8%;
+    top: 10%;
+    left: 19%;
     /* transform: rotate(90deg); */
-    height: 16em;
-    width: 21em;
+    height: 26em;
+    width: 15em;
     border: 5px solid #B55C22;
     border-radius: 2em;
 }
 
 canvas{
     position: absolute;
-    top: 19%;
-    left: 8%;
+    top: 10%;
+    left: 19%;
     /* transform: rotate(90deg); */
-    height: 16em;
-    width: 21em;
+    height: 26em;
+    width: 15em;
     border: 5px solid #B55C22;
     border-radius: 2em;
 }
-
-
-.flashit{ 
-    animation: flash 1s linear;
- }
-
- @keyframes flash {
-    0% { opacity: 1; }
-    50% { opacity: .1; }
-    100% { opacity: 1; }
- }
 
 #layouts{
     display: flex;
