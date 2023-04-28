@@ -31,7 +31,6 @@ app.get('/',(req,res) => {
     res.render('index1.html')
 });
 
-
 // Registration Form submit handling
 app.get("/register", (req, res) => {
     res.render('reg.html')
