@@ -49,11 +49,11 @@ video{
 
 canvas{
     position: absolute;
-    top: 10%;
-    left: 19%;
+    top: 9%;
+    left: 7%;
     /* transform: rotate(90deg); */
-    height: 26em;
-    width: 15em;
+    height: 24em;
+    width: 21em;
     border: 5px solid #B55C22;
     border-radius: 2em;
 }
