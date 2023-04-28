@@ -127,9 +127,7 @@ async function faceRecognition() {
         });
         DATA = result._label.split('+')
         // drawBox.draw(canvas);
-        setTimeout(()=>{
           showPrint()
-        },2000)
       });
     // }, 5000);
 }
@@ -148,12 +146,19 @@ function showPrint(){
   document.getElementById('Company').innerHTML += COMPANY
 }
 
-function printBadge(){
-  downloadReceipt()
+// function printBadge(){
+//   downloadReceipt()
+//   showThanks()
+// }
+
+function showThanks(){
     document.getElementById('PrintBadge').style.display = 'none'
     document.getElementById('showThanks').style.display = 'flex'
-    
+    setTimeout(()=>{
+      location.reload()
+    },5000)
 }
+
 
 function downloadReceipt() {
   // document.getElementById('print').style.display = 'none'
@@ -170,6 +175,11 @@ function downloadReceipt() {
   };
   const response = await fetch('http://localhost:3000/upload', options1)
   const res_data = await response.json()
-  console.log(res_data.ImageName)  
+  console.log(res_data.ImageName)
+  showThanks()
   })
+}
+
+function goBack(){
+  location.reload()
 }

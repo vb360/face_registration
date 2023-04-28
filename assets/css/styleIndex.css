@@ -6,8 +6,8 @@
 
 .print{
     cursor: pointer;
-    width: 90px;
-    height: 56px;
+    width: 5em;
+    height: 2.5em;
     background-color: #F8C800;
     font-size: 28px;
     font-weight: bold;
@@ -82,11 +82,11 @@
 #goback{
     position: absolute;
     bottom: 4%;
-    left: 37%;
+    left: 36%;
 }
 
 #printer{
     position: absolute;
     bottom: 4%;
-    left: 59%;
+    left: 58%;
 }
