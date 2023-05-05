@@ -38,17 +38,17 @@ function startWebcam(){
     .catch((error) => {
       console.error(error);
     });
+    
 }
 
-async function getLabeledFaceDescriptions() {
-  // const response =  await fetch('https://face-registration.onrender.com/getLabels')
-  // const labels = await response.json()
-  // console.log(labels)
+async function getLabels(){
   var listRef = await firebase.storage().ref(`labels`);
     // Find all the prefixes and items.
     await listRef.listAll()
       .then((res) => {
         res.prefixes.forEach((folderRef) => {
+          // labels = []
+          // console.log(folderRef)
           // All the prefixes under listRef.
           // You may call listAll() recursively on them.
           // console.log(folderRef.location.path_.slice(7))
@@ -61,24 +61,34 @@ async function getLabeledFaceDescriptions() {
         // Uh-oh, an error occurred!
         console.error(error)
       });
+      // console.log(labels)
+}
+
+
+function getLabeledFaceDescriptions() {
+  getLabels()
+  // const response =  await fetch('https://face-registration.onrender.com/getLabels')
+  // const labels = await response.json()
+  // console.log(labels)
   return Promise.all(
     labels.map(async (label) => {
       const descriptions = [];
-      // for (let i = 1; i <= 1; i++){
         let path = `labels/${label}`
-        firebase.storage().ref(path).child(`1`).getDownloadURL()
+        await firebase.storage().ref(path).child(`1`).getDownloadURL()
         .then(async (url) => {
-          // const img = await faceapi.fetchImage(`../assets/images/labels/${label}/${i}.png`); // firebase folder path??
           const img = await faceapi.fetchImage(url)
+          // console.log(url)
           const detections = await faceapi
             .detectSingleFace(img)
             .withFaceLandmarks()
             .withFaceDescriptor();
           descriptions.push(detections.descriptor);
           })
-  .catch((error) => {
-    // Handle any errors
-  });
+        .catch((error) => {
+          // Handle any errors
+          console.error(error)
+        });
+        // console.log(descriptions)
       // }
       return new faceapi.LabeledFaceDescriptors(label, descriptions);
     })
@@ -94,9 +104,7 @@ async function faceRecognition() {
   const labeledFaceDescriptors = await getLabeledFaceDescriptions();
   const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors);
   
-  canvas = await faceapi.createCanvasFromMedia(video);
-
-  
+    canvas = faceapi.createCanvasFromMedia(video);
     document.body.append(canvas);
 
     const displaySize = { width: video.width, height: video.height };
@@ -111,30 +119,31 @@ async function faceRecognition() {
         // console.log(detections)
 
       const resizedDetections = faceapi.resizeResults(detections, displaySize);
-
+      // console.log(`Redsized Detections: ${resizedDetections}`)
       // canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
 
       const results = resizedDetections.map((d) => {
         // console.log(d)
         return faceMatcher.findBestMatch(d.descriptor);
       });
-      // console.log(results)
+      // console.log(results) 
       results.forEach((result, i) => {
         // console.log(result._label)
         const box = resizedDetections[i].detection.box;
-        const drawBox = new faceapi.draw.DrawBox(box, {
-          label: result._label,
-        });
+        // const drawBox = new faceapi.draw.DrawBox(box, {
+          // label: result._label,
+        // });
         DATA = result._label.split('+')
         // drawBox.draw(canvas);
-          showPrint()
+        setTimeout(
+          showPrint,2000
+        )
       });
     // }, 5000);
 }
 
 
 function showPrint(){
-  
   NAME = DATA[0]
   COMPANY = DATA[1]
   canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
